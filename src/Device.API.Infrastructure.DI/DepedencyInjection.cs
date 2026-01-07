@@ -12,10 +12,12 @@ namespace Device.API.Infrastructure.DI
             #region Application/Services Layers 
             #endregion
 
+            #region Infrastructure db context
             services.AddDbContext<AppDbContext>(options =>
                     options.UseNpgsql(
                     configuration.GetConnectionString("Postgres"),
                     b => b.MigrationsAssembly("Device.API.Infrastructure.Data")));
+            #endregion
 
             return services;
         }
