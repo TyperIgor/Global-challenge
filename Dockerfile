@@ -10,14 +10,14 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Device.API/Device.API.csproj", "Device.API/"]
-COPY ["src/Device.API/Device.API.Application.Message/Device.API.Application.Message.csproj", "Device.API.Application.Message/"]
-COPY ["src/Device.API/Device.API.Domain.Models/Device.API.Domain.Models.csproj", "Device.API.Domain.Models/"]
-COPY ["src/Device.API/Device.API.Infrastructure.Utils/Device.API.Infrastructure.Utils.csproj", "Device.API.Infrastructure.Utils/"]
-COPY ["src/Device.API/Device.API.Application.Service/Device.API.Application.Service.csproj", "Device.API.Application.Service/"]
-COPY ["src/Device.API/Device.API.Domain.Contracts/Device.API.Domain.Contracts.csproj", "Device.API.Domain.Contracts/"]
-COPY ["src/Device.API/Device.API.Infrastructure.DI/Device.API.Infrastructure.DI.csproj", "Device.API.Infrastructure.DI/"]
-COPY ["src/Device.API/Device.API.Domain.Service/Device.API.Domain.Service.csproj", "Device.API.Domain.Service/"]
-COPY ["src/Device.API/Device.API.Infrastructure.Data/Device.API.Infrastructure.Data.csproj", "Device.API.Infrastructure.Data/"]
+COPY ["src/Device.API.Application.Message/Device.API.Application.Message.csproj", "Device.API.Application.Message/"]
+COPY ["src/Device.API.Domain.Models/Device.API.Domain.Models.csproj", "Device.API.Domain.Models/"]
+COPY ["src/Device.API.Infrastructure.Utils/Device.API.Infrastructure.Utils.csproj", "Device.API.Infrastructure.Utils/"]
+COPY ["src/Device.API.Application.Service/Device.API.Application.Service.csproj", "Device.API.Application.Service/"]
+COPY ["src/Device.API.Domain.Contracts/Device.API.Domain.Contracts.csproj", "Device.API.Domain.Contracts/"]
+COPY ["src/Device.API.Infrastructure.DI/Device.API.Infrastructure.DI.csproj", "Device.API.Infrastructure.DI/"]
+COPY ["src/Device.API.Domain.Service/Device.API.Domain.Service.csproj", "Device.API.Domain.Service/"]
+COPY ["src/Device.API.Infrastructure.Data/Device.API.Infrastructure.Data.csproj", "Device.API.Infrastructure.Data/"]
 RUN dotnet restore ".src/Device.API/Device.API.csproj"
 COPY . .
 
