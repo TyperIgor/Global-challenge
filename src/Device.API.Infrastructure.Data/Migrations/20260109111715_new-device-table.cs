@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Device.API.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class newtabledevice : Migration
+    public partial class newdevicetable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,15 +15,15 @@ namespace Device.API.Infrastructure.Data.Migrations
                 name: "device",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uuid", nullable: false),
-                    name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    brand = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    state = table.Column<int>(type: "integer", nullable: false),
-                    creationtime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Brand = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    State = table.Column<int>(type: "integer", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_device", x => x.id);
+                    table.PrimaryKey("PK_device", x => x.Id);
                 });
         }
 

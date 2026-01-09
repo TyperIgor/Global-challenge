@@ -8,7 +8,7 @@ namespace Device.API.Infrastructure.Data.Context
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options) { }
 
-        public DbSet<DeviceEntity> Users => Set<DeviceEntity>();
+        public DbSet<DeviceEntity> Devices => Set<DeviceEntity>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,18 +24,6 @@ namespace Device.API.Infrastructure.Data.Context
                 entity.Property(e => e.State).IsRequired();
                 entity.Property(e => e.CreationTime).IsRequired();
             });
-
-            foreach (var entity in modelBuilder.Model.GetEntityTypes())
-            {
-                // table name
-                entity.SetTableName(entity.GetTableName()!.ToLower());
-
-                // column names
-                foreach (var property in entity.GetProperties())
-                {
-                    property.SetColumnName(property.GetColumnName()!.ToLower());
-                }
-            }
         }
     }
 
