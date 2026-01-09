@@ -5,31 +5,53 @@ using Device.API.Application.Message.Dto;
 
 namespace Device.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class DeviceController : Controller
+    public class DeviceController(IDevicesOperation devicesOperation) : Controller
     {
-        private readonly IDevicesOperation devicesOperation;
+        private readonly IDevicesOperation _devicesOperation = devicesOperation;
 
-        public DeviceController()
-        {
-
-        }
-
-        [HttpGet]
+        [HttpGet("all")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<ActionResult<List<DeviceResponse>>> GetAll()
         {
-            return new List<DeviceResponse>();
+            var result = await _devicesOperation.GetAllAsync();
+
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public string GeById(int id)
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<ActionResult<List<DeviceResponse>>> GetById(Guid id)
         {
-            return "value";
+            var result = await _devicesOperation.GetById(id);
+
+            return Ok(result);
+        }
+
+
+        [HttpPost("add")]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<ActionResult> Create(string name, string brand)
+        {
+           var result = await _devicesOperation.CreateAsync(name, brand);
+           return Created();
+        }
+
+        [HttpPost("delete")]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<ActionResult> DeleteById(Guid id)
+        {
+            var result = await _devicesOperation.DeleteDeviceAsync(id);
+            return NoContent();
         }
     }
 }

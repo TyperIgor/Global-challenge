@@ -16,4 +16,16 @@ namespace Device.API.Application.Message.Dto
          [property: JsonPropertyName("state")] string State,
          [property: JsonPropertyName("creationTime")] string CreationTime
     );
+
+    public record SingleDataResponse
+    (
+         [property: JsonPropertyName("data")] DeviceResponse Data,
+         [property: JsonPropertyName("message")] string Message
+    );
+
+    public record ListDataResponse
+    (
+         [property: JsonPropertyName("data")] IEnumerable<DeviceResponse> Data,
+         [property: JsonPropertyName("message")] string Message
+    );
 }

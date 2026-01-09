@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Device.API.Application.Message\Device.API.Application.Message.csproj" />
+    <ProjectReference Include="..\Device.API.Domain.Contracts\Device.API.Domain.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -16,7 +16,7 @@ namespace Device.API.Infrastructure.Data.Context
 
             modelBuilder.Entity<DeviceEntity>(entity =>
             {
-                entity.ToTable("Device");
+                entity.ToTable("device");
 
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
@@ -24,6 +24,18 @@ namespace Device.API.Infrastructure.Data.Context
                 entity.Property(e => e.State).IsRequired();
                 entity.Property(e => e.CreationTime).IsRequired();
             });
+
+            foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            {
+                // table name
+                entity.SetTableName(entity.GetTableName()!.ToLower());
+
+                // column names
+                foreach (var property in entity.GetProperties())
+                {
+                    property.SetColumnName(property.GetColumnName()!.ToLower());
+                }
+            }
         }
     }
 

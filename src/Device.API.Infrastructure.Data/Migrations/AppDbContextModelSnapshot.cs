@@ -24,31 +24,34 @@ namespace Device.API.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Device.API.Domain.Models.Entities.DeviceEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<string>("Brand")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("brand");
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("creationtime");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
 
                     b.Property<int>("State")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("state");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Device", (string)null);
+                    b.ToTable("device", (string)null);
                 });
 #pragma warning restore 612, 618
         }

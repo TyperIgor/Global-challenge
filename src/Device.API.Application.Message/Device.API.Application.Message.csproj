@@ -14,4 +14,9 @@
     <PackageReference Include="FluentValidation" Version="12.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Device.API.Domain.Models\Device.API.Domain.Models.csproj" />
+    <ProjectReference Include="..\Device.API.Infrastructure.Utils\Device.API.Infrastructure.Utils.csproj" />
+  </ItemGroup>
+
 </Project>

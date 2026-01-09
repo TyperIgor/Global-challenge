@@ -13,6 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Device.API.Application.Service\Device.API.Application.Service.csproj" />
+    <ProjectReference Include="..\Device.API.Domain.Service\Device.API.Domain.Service.csproj" />
     <ProjectReference Include="..\Device.API.Infrastructure.Data\Device.API.Infrastructure.Data.csproj" />
   </ItemGroup>
 
