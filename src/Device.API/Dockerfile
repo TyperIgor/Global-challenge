@@ -12,24 +12,22 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /Device.API
-COPY ["Device.API/Device.API.csproj", "Device.API/"]
-COPY ["Device.API.Application.Message/Device.API.Application.Message.csproj", "Device.API.Application.Message/"]
-COPY ["Device.API.Domain.Models/Device.API.Domain.Models.csproj", "Device.API.Domain.Models/"]
-COPY ["Device.API.Infrastructure.Utils/Device.API.Infrastructure.Utils.csproj", "Device.API.Infrastructure.Utils/"]
-COPY ["Device.API.Application.Service/Device.API.Application.Service.csproj", "Device.API.Application.Service/"]
-COPY ["Device.API.Domain.Contracts/Device.API.Domain.Contracts.csproj", "Device.API.Domain.Contracts/"]
-COPY ["Device.API.Infrastructure.DI/Device.API.Infrastructure.DI.csproj", "Device.API.Infrastructure.DI/"]
-COPY ["Device.API.Domain.Service/Device.API.Domain.Service.csproj", "Device.API.Domain.Service/"]
-COPY ["Device.API.Infrastructure.Data/Device.API.Infrastructure.Data.csproj", "Device.API.Infrastructure.Data/"]
+COPY ["Device.API/Device.API/Device.API.csproj", "Device.API/"]
+COPY ["Device.API/Device.API.Application.Message/Device.API.Application.Message.csproj", "Device.API.Application.Message/"]
+COPY ["Device.API/Device.API.Domain.Models/Device.API.Domain.Models.csproj", "Device.API.Domain.Models/"]
+COPY ["Device.API/Device.API.Infrastructure.Utils/Device.API.Infrastructure.Utils.csproj", "Device.API.Infrastructure.Utils/"]
+COPY ["Device.API/Device.API.Application.Service/Device.API.Application.Service.csproj", "Device.API.Application.Service/"]
+COPY ["Device.API/Device.API.Domain.Contracts/Device.API.Domain.Contracts.csproj", "Device.API.Domain.Contracts/"]
+COPY ["Device.API/Device.API.Infrastructure.DI/Device.API.Infrastructure.DI.csproj", "Device.API.Infrastructure.DI/"]
+COPY ["Device.API/Device.API.Domain.Service/Device.API.Domain.Service.csproj", "Device.API.Domain.Service/"]
+COPY ["Device.API/Device.API.Infrastructure.Data/Device.API.Infrastructure.Data.csproj", "Device.API.Infrastructure.Data/"]
 RUN dotnet restore "./Device.API/Device.API.csproj"
 COPY . .
-WORKDIR "/src/Device.API"
-RUN dotnet build "./Device.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Device.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "src/Device.API/./Device.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
