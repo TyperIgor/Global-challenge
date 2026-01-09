@@ -4,8 +4,10 @@ namespace Device.API.Application.Message.Dto
 {
     public record DeviceRequest 
     (
-         [property: JsonPropertyName("name")] string Name,
-         [property: JsonPropertyName("brand")] string Brand
+         [property: JsonPropertyName("id")] Guid Id,
+         [property: JsonPropertyName("name")] string? Name,
+         [property: JsonPropertyName("brand")] string? Brand,
+         [property: JsonPropertyName("state")] int? State
     );
 
     public record DeviceResponse

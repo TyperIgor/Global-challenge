@@ -1,11 +1,10 @@
 ﻿using Device.API.Application.Message.Dto;
 using Device.API.Domain.Models.Entities;
-using Device.API.Domain.Models.Model;
 using Device.API.Infrastructure.Utils.Extension;
 
 namespace Device.API.Application.Message.Mapper
 {
-    public static class DeviceMapperResponse
+    public static class DeviceMapper
     {
         public static SingleDataResponse MapperToSingleResponse(DeviceEntity deviceDTO)
         {
@@ -37,6 +36,17 @@ namespace Device.API.Application.Message.Mapper
                 )),
                 "Device List retrieved successfully."
             );
+        }
+
+        public static DeviceEntity MappertToDomainEntity(DeviceRequest request)
+        {
+            return new DeviceEntity
+            {
+                Id = request.Id,
+                Name = request.Name,
+                Brand = request.Brand,
+                State = (State)request.State,
+            };
         }
     }
 }
