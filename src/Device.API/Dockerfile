@@ -11,7 +11,7 @@ EXPOSE 8081
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
-WORKDIR /src/Device.API
+WORKDIR /src
 COPY ["src/Device.API/Device.API.csproj", "Device.API/"]
 COPY ["src/Device.API/Device.API.Application.Message/Device.API.Application.Message.csproj", "Device.API.Application.Message/"]
 COPY ["src/Device.API/Device.API.Domain.Models/Device.API.Domain.Models.csproj", "Device.API.Domain.Models/"]
