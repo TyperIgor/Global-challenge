@@ -18,7 +18,7 @@ COPY ["src/Device.API.Domain.Contracts/Device.API.Domain.Contracts.csproj", "Dev
 COPY ["src/Device.API.Infrastructure.DI/Device.API.Infrastructure.DI.csproj", "Device.API.Infrastructure.DI/"]
 COPY ["src/Device.API.Domain.Service/Device.API.Domain.Service.csproj", "Device.API.Domain.Service/"]
 COPY ["src/Device.API.Infrastructure.Data/Device.API.Infrastructure.Data.csproj", "Device.API.Infrastructure.Data/"]
-RUN dotnet restore ".src/Device.API/Device.API.csproj"
+RUN dotnet restore "./Device.API/Device.API.csproj"
 COPY . .
 
 FROM build AS publish
