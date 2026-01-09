@@ -14,7 +14,7 @@ namespace Device.API.Domain.Models.Entities
 
         public string Brand { get; set; }
 
-        public State State { get; set; }
+        public State? State { get; set; }
 
         public DateTime CreationTime { get; set;}
     }
