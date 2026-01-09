@@ -1,12 +1,11 @@
 ﻿using Device.API.Domain.Contracts;
 using Device.API.Domain.Contracts.Repositories;
 using Device.API.Domain.Models.Entities;
-using Device.API.Domain.Models.Model;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Device.API.Infrastructure.DI")]
 namespace Device.API.Domain.Service
 {
-    internal class DeviceImp(IDeviceRepository deviceRepository) : IDeviceCRUD
+    internal class DeviceImp(IDeviceRepository deviceRepository) : IDeviceCRUD // In this domain service class, i can use multiple repositories if needed and apply domain business rules
     {
         private readonly IDeviceRepository _deviceRepository = deviceRepository ?? throw new ArgumentNullException(nameof(deviceRepository));
 
@@ -26,27 +25,42 @@ namespace Device.API.Domain.Service
 
         public async Task<bool> DeleteDeviceAsync(Guid id)
         {
+            var checkDeviceInUse = await _deviceRepository.CheckDeviceExistAndIsInUse(id);
+
+            if (checkDeviceInUse)
+                return false;
+
             return await _deviceRepository.DeleteAsync(id);
         }
 
         public async Task<List<DeviceEntity>> GetAllDevicesAsync()
         {
             return await _deviceRepository.GetAllAsync();
-         }
+        }
+
+        public async Task<List<DeviceEntity>> GetByBrand(string brand)
+        {
+            return await _deviceRepository.GetAllByBrand(brand);
+        }
+
+        public async Task<List<DeviceEntity>> GetByState(int state)
+        {
+            return await _deviceRepository.GetAllByState(state);
+        }
 
         public async Task<DeviceEntity> GetDeviceByIdAsync(Guid id)
         {
             return await _deviceRepository.GetAsync(id);
         }
 
-        public Task PatchDeviceAsync()
+        public async Task<bool> PartialOrFullyUpdateDeviceAsync(DeviceEntity device)
         {
-            throw new NotImplementedException();
-        }
+            var checkDeviceExist = await _deviceRepository.CheckOnlyDeviceExist(device.Id);
 
-        public Task<bool> UpdateDeviceAsync(string name, string brand)
-        {
-            throw new NotImplementedException();
+            if (!checkDeviceExist)
+                return false;
+
+            return await _deviceRepository.PartiallyOrFullyUpdateAsync(device);
         }
     }
 }

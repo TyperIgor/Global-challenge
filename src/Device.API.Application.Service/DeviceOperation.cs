@@ -24,7 +24,17 @@ namespace Device.API.Application.Service
         {
             var response = await _deviceCRUD.GetAllDevicesAsync();
 
-            return DeviceMapperResponse.MapperToListResponse(response);
+            return DeviceMapper.MapperToListResponse(response);
+        }
+
+        public async Task<ListDataResponse> GetByBrand(string brand)
+        {
+            var response = await _deviceCRUD.GetByBrand(brand);
+
+            if (response is null)
+                return null;
+
+            return DeviceMapper.MapperToListResponse(response);
         }
 
         public async Task<SingleDataResponse> GetById(Guid id)
@@ -34,12 +44,24 @@ namespace Device.API.Application.Service
             if (response is null)
                 return null;
 
-            return DeviceMapperResponse.MapperToSingleResponse(response);
+            return DeviceMapper.MapperToSingleResponse(response);
         }
 
-        public Task PatchDeviceAsync(int id)
+        public async Task<ListDataResponse> GetByState(int state)
         {
-            throw new NotImplementedException();
+            var response = await _deviceCRUD.GetByState(state);
+
+            if (response is null)
+                return null;
+
+            return DeviceMapper.MapperToListResponse(response);
+        }
+
+        public async Task<bool> PartialOrFullUpdateAsync(DeviceRequest request)
+        {
+            var entity = DeviceMapper.MappertToDomainEntity(request);
+
+            return await _deviceCRUD.PartialOrFullyUpdateDeviceAsync(entity);
         }
     }
 }

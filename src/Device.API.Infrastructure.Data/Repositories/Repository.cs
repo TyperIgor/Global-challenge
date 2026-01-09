@@ -3,15 +3,11 @@ using Npgsql;
 
 namespace Device.API.Infrastructure.Data.Repositories
 {
-    internal abstract class Repository : IDisposable
+    internal abstract class Repository(IDbContext dbContext) : IDisposable
     {
-        protected readonly NpgsqlConnection _npgsqlConnection;
-        protected Repository(IDbContext dbContext)
-        {
-            _npgsqlConnection = dbContext.GetConnectionAsync().GetAwaiter().GetResult();
-        }
+        private readonly NpgsqlConnection _npgsqlConnection = dbContext.GetConnectionAsync().GetAwaiter().GetResult();
 
-        public void Dispose() => _npgsqlConnection.DisposeAsync();
+        public void Dispose() =>    _npgsqlConnection.DisposeAsync();
 
         public async Task CloseConnection() => await _npgsqlConnection.CloseAsync();
     }

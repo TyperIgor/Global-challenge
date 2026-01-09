@@ -15,7 +15,6 @@ namespace Device.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [HttpGet, Produces("application/json", Type = typeof(List<DeviceResponse>))]
         public async Task<ActionResult<List<DeviceResponse>>> GetAll()
         {
             var result = await _devicesOperation.GetAllAsync();
@@ -27,7 +26,6 @@ namespace Device.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [HttpPost, Produces("application/json", Type = typeof(DeviceResponse))]
         public async Task<ActionResult<DeviceResponse>> GetById(Guid id)
         {
             var result = await _devicesOperation.GetById(id);
@@ -53,7 +51,7 @@ namespace Device.API.Controllers
         public async Task<ActionResult> GetByBrand(string brand)
         {
             var result = await _devicesOperation.GetByBrand(brand);
-            return Created();
+            return Ok(result);
         }
 
         [HttpGet("all-by-state")]
@@ -63,16 +61,20 @@ namespace Device.API.Controllers
         public async Task<ActionResult> GetByState(int state)
         {
             var result = await _devicesOperation.GetByState(state);
-            return Created();
+            return Ok(result);
         }
 
-        [HttpGet("patch-device")]
+        [HttpPut("update-device")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<ActionResult> PatchDevice(DeviceRequest request)
         {
-            var result = await _devicesOperation.PatchDeviceAsync(request);
+            var result = await _devicesOperation.PartialOrFullUpdateAsync(request);
+
+            if (result is false)
+                return NotFound("Device not exist to be updated");
+
             return Created();
         }
 

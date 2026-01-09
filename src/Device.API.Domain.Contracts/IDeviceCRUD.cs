@@ -10,10 +10,12 @@ namespace Device.API.Domain.Contracts
 
         Task<DeviceEntity> GetDeviceByIdAsync(Guid id);
 
-        Task<bool> UpdateDeviceAsync(string name, string brand);
+        Task<List<DeviceEntity>> GetByBrand(string brand);
+
+        Task<List<DeviceEntity>> GetByState(int state);
+
+        Task<bool> PartialOrFullyUpdateDeviceAsync(DeviceEntity device);
 
         Task<bool> DeleteDeviceAsync(Guid id);
-
-        Task PatchDeviceAsync();
     }
 }

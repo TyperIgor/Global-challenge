@@ -12,8 +12,12 @@ namespace Device.API.Application.Service.Interfaces
 
         Task<bool> CreateAsync(string name, string brand);
 
+        Task<ListDataResponse> GetByBrand(string Brand);
+
+        Task<ListDataResponse> GetByState(int state);
+
         Task<bool> DeleteDeviceAsync(Guid id);
 
-        Task PatchDeviceAsync(int id);
+        Task<bool> PartialOrFullUpdateAsync(DeviceRequest request);
     }
 }

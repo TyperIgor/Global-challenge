@@ -8,7 +8,15 @@ namespace Device.API.Domain.Contracts.Repositories
 
         Task<DeviceEntity> GetAsync(Guid id);
 
-        Task<bool> UpdateAsync(int id);
+        Task<List<DeviceEntity>> GetAllByBrand(string brand);
+
+        Task<List<DeviceEntity>> GetAllByState(int state);
+
+        Task<bool> CheckDeviceExistAndIsInUse(Guid id);
+
+        Task<bool> CheckOnlyDeviceExist(Guid id);
+
+        Task<bool> PartiallyOrFullyUpdateAsync(DeviceEntity id);
 
         Task<bool> DeleteAsync(Guid id);
 
