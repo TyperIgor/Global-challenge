@@ -8,7 +8,7 @@
 
 ## 💻 Preconditions
 
-before start, make sure you have met the following requirements:
+Before start, make sure you have met the following requirements:
 
 * You have instaled .Net version (9.0 or higher)
 * Your operational system should be Windows / Linux / Mac.
@@ -25,12 +25,38 @@ Use following command to validate container is running.
 docker container ps
 ```
 
-## ☕ Using Device API 
+After you opened application at 'appsettings.json', you will find a connection string. Of course if you are running locally just change there.
 
-
-
-```
-<Example of usage>
+```json
+"ConnectionsStrings": { "Postgres": "Host=localhost;Username=postgres;Password=whaeversecret;Port=5432;Database=postgres;"}
 ```
 
-## 📫 Helping the project 
+## ☕ How to Interact with the API
+
+| Method | Endpoint            | Description               |
+| ------ | ------------------- | ------------------------- |
+| GET    | `/devices`      | Get all devices           |
+| GET    | `/devices/{id}` | Get device by ID          |
+| POST   | `/devices`      | Create a device           |
+| PATCH  | `/devices/{id}` | Partially or fully update a device |
+| DELETE | `/devices/{id}` | Delete a device           |
+
+
+
+
+## Technologies
+
+* 
+
+<h2>⚡ Bonus </h2>
+This application is also available in a temporarly production environment, where you can test immediately and its configured also with Postgres instance from Render cloud host platform.
+
+[device-api-host](https://global-challenge.onrender.com/swagger")
+
+### Additional Information 
+
+
+
+
+
+
