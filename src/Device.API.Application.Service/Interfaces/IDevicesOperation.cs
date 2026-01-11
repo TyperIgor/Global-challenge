@@ -18,6 +18,6 @@ namespace Device.API.Application.Service.Interfaces
 
         Task<bool> DeleteDeviceAsync(Guid id);
 
-        Task<bool> PartialOrFullUpdateAsync(DeviceRequest request);
+        Task<bool> PartialOrFullUpdateAsync(DeviceUpdateRequest request);
     }
 }

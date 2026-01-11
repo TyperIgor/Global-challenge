@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Device.API.Application.Service.Interfaces;
 using Device.API.Application.Message.Dto;
 
-namespace Device.API.Controllers
+namespace Device.API.Controllers.v1
 {
     [Route("[controller]")]
     [ApiController]
@@ -40,8 +40,8 @@ namespace Device.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<ActionResult> Create(string name, string brand)
         {
-           var result = await _devicesOperation.CreateAsync(name, brand);
-           return Created();
+            var result = await _devicesOperation.CreateAsync(name, brand);
+            return Created();
         }
 
         [HttpGet("all-by-brand")]
@@ -68,14 +68,14 @@ namespace Device.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<ActionResult> PatchDevice(DeviceRequest request)
+        public async Task<ActionResult> PatchDevice(DeviceUpdateRequest request)
         {
             var result = await _devicesOperation.PartialOrFullUpdateAsync(request);
 
             if (result is false)
                 return NotFound("Device not exist to be updated");
 
-            return Created();
+            return Ok();
         }
 
         [HttpDelete("delete")]

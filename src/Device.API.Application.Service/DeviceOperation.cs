@@ -57,7 +57,7 @@ namespace Device.API.Application.Service
             return DeviceMapper.MapperToListResponse(response);
         }
 
-        public async Task<bool> PartialOrFullUpdateAsync(DeviceRequest request)
+        public async Task<bool> PartialOrFullUpdateAsync(DeviceUpdateRequest request)
         {
             var entity = DeviceMapper.MappertToDomainEntity(request);
 

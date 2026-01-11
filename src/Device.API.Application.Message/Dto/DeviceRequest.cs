@@ -10,6 +10,14 @@ namespace Device.API.Application.Message.Dto
          [property: JsonPropertyName("state")] int? State
     );
 
+    public record DeviceUpdateRequest
+    (
+     [property: JsonPropertyName("id")] Guid Id,
+     [property: JsonPropertyName("name")] string? Name,
+     [property: JsonPropertyName("brand")] string? Brand,
+     [property: JsonPropertyName("state")] int? State
+    );
+
     public record DeviceResponse
     (
          [property: JsonPropertyName("id")] string Id,
