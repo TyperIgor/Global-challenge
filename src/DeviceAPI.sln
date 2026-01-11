@@ -49,6 +49,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Utils", "3 - Utils", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Device.API.Infrastructure.Utils", "Device.API.Infrastructure.Utils\Device.API.Infrastructure.Utils.csproj", "{AC601B50-538D-40D6-BACD-E18CC9DD2A53}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Middleware", "3 - Middleware", "{D1B0B4C9-6B73-483A-AD6A-B117FA0D5952}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Device.API.Application.Middleware", "Device.API.Application.Middleware\Device.API.Application.Middleware.csproj", "{D3C49B8A-8BB7-4E4F-AF6C-EA8854F544DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +99,10 @@ Global
 		{AC601B50-538D-40D6-BACD-E18CC9DD2A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC601B50-538D-40D6-BACD-E18CC9DD2A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC601B50-538D-40D6-BACD-E18CC9DD2A53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3C49B8A-8BB7-4E4F-AF6C-EA8854F544DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3C49B8A-8BB7-4E4F-AF6C-EA8854F544DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3C49B8A-8BB7-4E4F-AF6C-EA8854F544DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3C49B8A-8BB7-4E4F-AF6C-EA8854F544DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +126,8 @@ Global
 		{7367748D-8132-493B-A2FC-F0623BD97B1B} = {4872C966-3192-43B2-A151-66057CECAD8D}
 		{EFF47AD8-D41E-43F0-8B84-8D373A5399A6} = {2588EF25-8C62-48FB-B957-79CE9898D210}
 		{AC601B50-538D-40D6-BACD-E18CC9DD2A53} = {EFF47AD8-D41E-43F0-8B84-8D373A5399A6}
+		{D1B0B4C9-6B73-483A-AD6A-B117FA0D5952} = {13091281-FD66-408C-95D8-42E1CEF14BBA}
+		{D3C49B8A-8BB7-4E4F-AF6C-EA8854F544DC} = {D1B0B4C9-6B73-483A-AD6A-B117FA0D5952}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BCE9D82C-95FB-4212-BE12-3D4A92ED85C2}

@@ -1,3 +1,4 @@
+using Device.API.Application.Middleware;
 using Device.API.Infrastructure.DI;
 using Microsoft.OpenApi;
 
@@ -22,9 +23,13 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+app.UseMiddleware<GlobalErrorHandlingMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
 app.MapControllers();
+
 app.Run();
