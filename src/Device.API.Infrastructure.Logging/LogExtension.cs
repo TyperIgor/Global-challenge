@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Serilog.Events;
 using Serilog;
 
 namespace Device.API.Infrastructure.Logging
