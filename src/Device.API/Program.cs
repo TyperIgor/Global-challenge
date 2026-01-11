@@ -1,9 +1,14 @@
 using Device.API.Infrastructure.DI;
+using Device.API.Infrastructure.Logging;
 using Microsoft.OpenApi;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDependencies(builder.Configuration); // inject application dependencies 
+builder.Host.UseSerilog();
+builder.Services.ConfigureLogger(builder.Configuration);
+
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c =>
 {
