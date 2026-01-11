@@ -38,7 +38,7 @@ namespace Device.API.Application.Message.Mapper
             );
         }
 
-        public static DeviceEntity MappertToDomainEntity(DeviceRequest request)
+        public static DeviceEntity MappertToDomainEntity(DeviceUpdateRequest request)
         {
             return new DeviceEntity
             {

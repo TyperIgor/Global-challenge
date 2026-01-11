@@ -6,6 +6,7 @@ using Device.API.Domain.Service;
 using Device.API.Infrastructure.Data.Context;
 using Device.API.Infrastructure.Data.Interfaces;
 using Device.API.Infrastructure.Data.Repositories;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,12 @@ namespace Device.API.Infrastructure.DI
             #region Application/Services Layers 
             services.AddScoped<IDevicesOperation, DeviceOperation>();
             services.AddScoped<IDeviceCRUD, DeviceImp>();
+            #endregion
+
+            #region FluentValidation
+            services.AddFluentValidationAutoValidation();
+            services.AddFluentValidationClientsideAdapters();
+
             #endregion
 
             #region Infrastructure db context
