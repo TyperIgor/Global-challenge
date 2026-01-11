@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper.Contrib" Version="2.0.78" />
+    <ProjectReference Include="..\Device.API.Application.Message\Device.API.Application.Message.csproj" />
+    <ProjectReference Include="..\Device.API.Domain.Contracts\Device.API.Domain.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Device.API.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260107152448_addDevice")]
-    partial class addDevice
+    [Migration("20260109111715_new-device-table")]
+    partial class newdevicetable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,9 @@ namespace Device.API.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Device.API.Domain.Models.Entities.DeviceEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Brand")
                         .IsRequired()
@@ -51,7 +49,7 @@ namespace Device.API.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Device", (string)null);
+                    b.ToTable("device", (string)null);
                 });
 #pragma warning restore 612, 618
         }

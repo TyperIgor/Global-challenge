@@ -13,6 +13,14 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Device.API/Device.API.csproj", "Device.API/"]
+COPY ["Device.API.Application.Message/Device.API.Application.Message.csproj", "Device.API.Application.Message/"]
+COPY ["Device.API.Domain.Models/Device.API.Domain.Models.csproj", "Device.API.Domain.Models/"]
+COPY ["Device.API.Infrastructure.Utils/Device.API.Infrastructure.Utils.csproj", "Device.API.Infrastructure.Utils/"]
+COPY ["Device.API.Application.Service/Device.API.Application.Service.csproj", "Device.API.Application.Service/"]
+COPY ["Device.API.Domain.Contracts/Device.API.Domain.Contracts.csproj", "Device.API.Domain.Contracts/"]
+COPY ["Device.API.Infrastructure.DI/Device.API.Infrastructure.DI.csproj", "Device.API.Infrastructure.DI/"]
+COPY ["Device.API.Domain.Service/Device.API.Domain.Service.csproj", "Device.API.Domain.Service/"]
+COPY ["Device.API.Infrastructure.Data/Device.API.Infrastructure.Data.csproj", "Device.API.Infrastructure.Data/"]
 RUN dotnet restore "./Device.API/Device.API.csproj"
 COPY . .
 WORKDIR "/src/Device.API"

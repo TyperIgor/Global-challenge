@@ -24,11 +24,9 @@ namespace Device.API.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Device.API.Domain.Models.Entities.DeviceEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Brand")
                         .IsRequired()
@@ -48,7 +46,7 @@ namespace Device.API.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Device", (string)null);
+                    b.ToTable("device", (string)null);
                 });
 #pragma warning restore 612, 618
         }

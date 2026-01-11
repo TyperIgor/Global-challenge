@@ -1,23 +1,21 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Device.API.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class addDevice : Migration
+    public partial class newdevicetable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Device",
+                name: "device",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Brand = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     State = table.Column<int>(type: "integer", nullable: false),
@@ -25,7 +23,7 @@ namespace Device.API.Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Device", x => x.Id);
+                    table.PrimaryKey("PK_device", x => x.Id);
                 });
         }
 
@@ -33,7 +31,7 @@ namespace Device.API.Infrastructure.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Device");
+                name: "device");
         }
     }
 }

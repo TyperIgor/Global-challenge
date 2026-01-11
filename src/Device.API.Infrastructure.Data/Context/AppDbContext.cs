@@ -3,12 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Device.API.Infrastructure.Data.Context
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options)
-            : base(options) { }
-
-        public DbSet<DeviceEntity> Users => Set<DeviceEntity>();
+        public DbSet<DeviceEntity> Devices => Set<DeviceEntity>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -16,7 +13,7 @@ namespace Device.API.Infrastructure.Data.Context
 
             modelBuilder.Entity<DeviceEntity>(entity =>
             {
-                entity.ToTable("Device");
+                entity.ToTable("device");
 
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
