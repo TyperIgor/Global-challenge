@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Device.API.Application.Message\Device.API.Application.Message.csproj" />
+    <ProjectReference Include="..\Device.API.Application.Middleware\Device.API.Application.Middleware.csproj" />
     <ProjectReference Include="..\Device.API.Application.Service\Device.API.Application.Service.csproj" />
     <ProjectReference Include="..\Device.API.Infrastructure.DI\Device.API.Infrastructure.DI.csproj" />
     <ProjectReference Include="..\Device.API.Infrastructure.Logging\Device.API.Infrastructure.Logging.csproj" />
