@@ -6,7 +6,7 @@ namespace Device.API.Domain.Contracts.Repositories
     {
         Task<List<DeviceEntity>> GetAllAsync();
 
-        Task<DeviceEntity> GetAsync(Guid id);
+        Task<DeviceEntity> GetAsync(Guid? id);
 
         Task<List<DeviceEntity>> GetAllByBrand(string brand);
 

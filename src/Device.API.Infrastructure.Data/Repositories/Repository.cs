@@ -7,7 +7,7 @@ namespace Device.API.Infrastructure.Data.Repositories
     {
         private readonly NpgsqlConnection _npgsqlConnection = dbContext.GetConnectionAsync().GetAwaiter().GetResult();
 
-        public void Dispose() =>    _npgsqlConnection.DisposeAsync();
+        public void Dispose() => _npgsqlConnection.DisposeAsync();
 
         public async Task CloseConnection() => await _npgsqlConnection.CloseAsync();
     }

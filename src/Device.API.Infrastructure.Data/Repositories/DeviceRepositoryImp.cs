@@ -5,6 +5,7 @@ using Device.API.Infrastructure.Data.Context;
 using Device.API.Domain.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Device.API.Test")]
 namespace Device.API.Infrastructure.Data.Repositories
 {
     internal class DeviceRepositoryImp(IDbContext dbContext, AppDbContext context) : Repository(dbContext), IDeviceRepository
@@ -103,7 +104,7 @@ namespace Device.API.Infrastructure.Data.Repositories
             }
         }
 
-        public async Task<DeviceEntity> GetAsync(Guid id)
+        public async Task<DeviceEntity> GetAsync(Guid? id)
         {
             try
             {
