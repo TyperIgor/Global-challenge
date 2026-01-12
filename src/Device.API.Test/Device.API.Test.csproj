@@ -22,13 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\" />
-    <Folder Include="Controller\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Device.API.Application.Service\Device.API.Application.Service.csproj" />
     <ProjectReference Include="..\Device.API.Domain.Contracts\Device.API.Domain.Contracts.csproj" />
     <ProjectReference Include="..\Device.API.Infrastructure.Data\Device.API.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\Device.API\Device.API.csproj" />
   </ItemGroup>
 
 </Project>

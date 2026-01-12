@@ -15,7 +15,7 @@ namespace Device.API.Controllers.v1
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<ActionResult<List<DeviceResponse>>> GetAll()
+        public async Task<ActionResult<ListDataResponse>> GetAll()
         {
             var result = await _devicesOperation.GetAllAsync();
 
@@ -26,9 +26,12 @@ namespace Device.API.Controllers.v1
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<ActionResult<DeviceResponse>> GetById(Guid id)
+        public async Task<ActionResult<SingleDataResponse>> GetById(Guid id)
         {
             var result = await _devicesOperation.GetById(id);
+
+            if (result is null)
+                return NotFound();
 
             return Ok(result);
         }
@@ -68,7 +71,7 @@ namespace Device.API.Controllers.v1
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<ActionResult> PatchDevice(DeviceUpdateRequest request)
+        public async Task<ActionResult> UpdateFullyOrPartialDevice(DeviceUpdateRequest request)
         {
             var result = await _devicesOperation.PartialOrFullUpdateAsync(request);
 
@@ -87,7 +90,7 @@ namespace Device.API.Controllers.v1
             var result = await _devicesOperation.DeleteDeviceAsync(id);
 
             if (result is false)
-                return BadRequest("Device is in use and cannot be deleted.");
+                return BadRequest("Device is in use or not exist");
 
             return NoContent();
         }
