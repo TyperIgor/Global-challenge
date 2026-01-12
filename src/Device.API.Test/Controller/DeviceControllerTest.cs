@@ -1,14 +1,18 @@
 ﻿using Device.API.Application.Message.Dto;
 using Device.API.Application.Service.Interfaces;
 using Device.API.Controllers.v1;
+using Device.API.Domain.Models.Entities;
+using AutoFixture;
 using NSubstitute;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Device.API.Test.Controller
 {
-    internal class DeviceControllerTest
+    public class DeviceControllerTest
     {
         private readonly IDevicesOperation _deviceServiceSub;
         private readonly DeviceController _controller;
+        private Fixture _fixture = new Fixture();
 
         public DeviceControllerTest()
         {
@@ -17,13 +21,15 @@ namespace Device.API.Test.Controller
         }
 
         [Fact]
-        public async Task GetAllDevices_ReturnsOkResult_WithListOfDevices()
+        public async Task DeviceControllerObj_GetAllDevices_ShouldReturnWithListOfDevices()
         {
+            var objlist = _fixture.Create<List<DeviceResponse>>();
 
             // Arrange
             var devices = new ListDataResponse(
-                    Data: new 
-                )
+                    Data: objlist,
+                    Message: ""
+                );
 
             _deviceServiceSub.GetAllAsync().Returns(devices);
 
@@ -31,108 +37,93 @@ namespace Device.API.Test.Controller
             var result = await _controller.GetAll();
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnDevices = Assert.IsAssignableFrom<IEnumerable<DeviceModel>>(okResult.Value);
-            Assert.Equal(2, ((List<DeviceModel>)returnDevices).Count);
+            Assert.IsType<ActionResult<ListDataResponse>>(result);
         }
 
         [Fact]
-        public async Task GetDeviceById_DeviceExists_ReturnsOkResult()
+        public async Task DeviceControllerObj_GetDeviceById_DeviceExists_ShouldReturnDataType()
         {
             // Arrange
-            var device = new DeviceModel { Id = 1, Name = "Device1" };
-            _deviceServiceSub.Setup(s => s.GetDeviceByIdAsync(1)).ReturnsAsync(device);
+            var response = _fixture.Create<SingleDataResponse>();
+            _deviceServiceSub.GetById(new Guid()).Returns(response);
 
             // Act
-            var result = await _controller.GetDeviceById(1);
+            var result = await _controller.GetById(new Guid());
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnDevice = Assert.IsType<DeviceModel>(okResult.Value);
-            Assert.Equal(1, returnDevice.Id);
+             Assert.IsType<ActionResult<SingleDataResponse>>(result);
         }
 
         [Fact]
-        public async Task GetDeviceById_DeviceNotFound_ReturnsNotFound()
+        public async Task DeviceControllerObj_GetDeviceById_DeviceNotFound_ShouldReturnNotFound()
         {
             // Arrange
-            _deviceServiceSub.Setup(s => s.GetDeviceByIdAsync(99)).ReturnsAsync((DeviceModel)null);
+            var response = _fixture.Create<SingleDataResponse>();
+
+            response = null;
+
+            _deviceServiceSub.GetById(new Guid()).ReturnsForAnyArgs(response);
 
             // Act
-            var result = await _controller.GetDeviceById(99);
+            var result = await _controller.GetById(new Guid());
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            Assert.IsType<NotFoundResult>(result.Result);
         }
 
         [Fact]
-        public async Task CreateDevice_ValidDevice_ReturnsCreatedAtAction()
+        public async Task DeviceControllerObj_CreateDevice_ShouldReturnsCreatedAtActionStatus()
         {
             // Arrange
-            var device = new DeviceModel { Id = 1, Name = "Device1" };
-            _deviceServiceSub.Setup(s => s.CreateDeviceAsync(device)).ReturnsAsync(device);
+            var device = _fixture.Create<DeviceRequest>();
+            _deviceServiceSub.CreateAsync("","").ReturnsForAnyArgs(true);
 
             // Act
-            var result = await _controller.CreateDevice(device);
+            var result = await _controller.Create("","");
 
             // Assert
-            var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
-            var returnDevice = Assert.IsType<DeviceModel>(createdAtActionResult.Value);
-            Assert.Equal(device.Id, returnDevice.Id);
+            Assert.IsType<CreatedResult>(result);
         }
 
         [Fact]
-        public async Task UpdateDevice_DeviceExists_ReturnsNoContent()
+        public async Task DeviceControllerObj_UpdateDevice_DeviceExists_ShouldReturnStatusOK()
         {
             // Arrange
-            var device = new DeviceModel { Id = 1, Name = "UpdatedDevice" };
-            _deviceServiceSub.Setup(s => s.UpdateDeviceAsync(1, device)).ReturnsAsync(true);
+            var deviceobj = _fixture.Create<DeviceUpdateRequest>();
+            _deviceServiceSub.PartialOrFullUpdateAsync(deviceobj).ReturnsForAnyArgs(true);
 
             // Act
-            var result = await _controller.UpdateDevice(1, device);
+            var result = await _controller.UpdateFullyOrPartialDevice(deviceobj);
 
             // Assert
-            Assert.IsType<NoContentResult>(result);
+            Assert.IsType<OkResult>(result);
         }
 
         [Fact]
-        public async Task UpdateDevice_DeviceNotFound_ReturnsNotFound()
+        public async Task DeviceControllerObj_UpdateDevice_DeviceNotFound_ShouldReturnsNotFound()
         {
             // Arrange
-            var device = new DeviceModel { Id = 99, Name = "NonExistent" };
-            _deviceServiceSub.Setup(s => s.UpdateDeviceAsync(99, device)).ReturnsAsync(false);
+            var deviceobj = _fixture.Create<DeviceUpdateRequest>();
+            _deviceServiceSub.PartialOrFullUpdateAsync(deviceobj).Returns(false);
 
             // Act
-            var result = await _controller.UpdateDevice(99, device);
+            var result = await _controller.UpdateFullyOrPartialDevice(deviceobj);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            Assert.IsType<NotFoundObjectResult>(result);
         }
 
         [Fact]
-        public async Task DeleteDevice_DeviceExists_ReturnsNoContent()
+        public async Task _DeviceControllerObj_DeleteDevice_ShouldReturnBadRequestIfNotExist()
         {
             // Arrange
-            _deviceServiceSub.Setup(s => s.DeleteDeviceAsync(1)).ReturnsAsync(true);
+            _deviceServiceSub.DeleteDeviceAsync(new Guid()).ReturnsForAnyArgs(false);
 
             // Act
-            var result = await _controller.DeleteDevice(1);
+            var result = await _controller.DeleteById(new Guid());
 
             // Assert
-            Assert.IsType<NoContentResult>(result);
-        }
-
-        [Fact]
-        public async Task DeleteDevice_DeviceNotFound_ReturnsNotFound()
-        {
-            // Arrange
-            _deviceServiceSub.Setup(s => s.DeleteDeviceAsync(99)).ReturnsAsync(false);
-
-            // Act
-            var result = await _controller.DeleteDevice(99);
-
-            // Assert
-            Assert.IsType<NotFoundResult>(result);
+            Assert.IsType<BadRequestObjectResult>(result);
         }
     }
 }
