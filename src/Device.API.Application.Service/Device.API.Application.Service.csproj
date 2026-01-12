@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Device.API.Application.Message\Device.API.Application.Message.csproj" />
+    <ProjectReference Include="..\Device.API.Domain.Contracts\Device.API.Domain.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
