@@ -40,12 +40,6 @@ namespace Device.API.Infrastructure.DI
             #endregion
             #region HealthCheck
 
-            if (env.IsProduction())
-            {
-                services.AddHealthChecks()
-                        .AddNpgSql(configuration.GetConnectionString("PostgresRender"), name: "Postgres Health Check");
-            }
-
             services.AddHealthChecks()
                     .AddNpgSql(configuration.GetConnectionString("PostgresRender"), 
                         name: "Postgres Health Check",
