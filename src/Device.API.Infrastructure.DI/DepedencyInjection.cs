@@ -32,7 +32,7 @@ namespace Device.API.Infrastructure.DI
             #region Infrastructure db context
             services.AddDbContext<AppDbContext>(options =>
                     options.UseNpgsql(
-                    configuration.GetConnectionString("PostgresRender"), // ToDO : Move connection string to secret manager AWS secret or Azure Key vault whaetever
+                    configuration.GetConnectionString("Postgres"), // ToDO : Move connection string to secret manager AWS secret or Azure Key vault whaetever
                     b => b.MigrationsAssembly("Device.API.Infrastructure.Data"))); //Configure EF Migrations Assembly 
 
             services.AddScoped<IDbContext, DBContext>(); //Manual db context to handle npgsql connections
