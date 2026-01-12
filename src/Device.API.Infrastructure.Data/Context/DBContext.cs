@@ -25,7 +25,7 @@ namespace Device.API.Infrastructure.Data.Context
 
         private async Task<NpgsqlConnection> CreateConnection()
         {
-            _npgsqlConnection = new NpgsqlConnection(_configuration.GetConnectionString("Postgres"));
+            _npgsqlConnection = new NpgsqlConnection(_configuration.GetConnectionString("PostgresRender"));
             await _npgsqlConnection.OpenAsync();
             return _npgsqlConnection;
         }
