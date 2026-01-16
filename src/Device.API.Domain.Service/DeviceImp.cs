@@ -91,24 +91,50 @@ namespace Device.API.Domain.Service
             return device;
         }
 
-        public async Task<bool> PartialOrFullyUpdateDeviceAsync(DeviceEntity device)
+        public async Task<bool> PartialOrFullyUpdateDeviceAsync(DeviceEntity deviceToUpdate)
         {
-            _logger.LogInformation("Updating device with ID: {DeviceId}", device.Id);
+            _logger.LogInformation("Updating device with ID: {DeviceId}", deviceToUpdate.Id);
 
-            var checkDeviceExist = await _deviceRepository.CheckOnlyDeviceExist(device.Id);
+            var checkDeviceExist = await _deviceRepository.CheckOnlyDeviceExist(deviceToUpdate.Id);
 
             if (!checkDeviceExist)
             {
-                _logger.LogWarning("Device with ID: {DeviceId} does not exist. Update aborted.", device.Id);
+                _logger.LogWarning("Device with ID: {DeviceId} does not exist. Update aborted.", deviceToUpdate.Id);
                 return false;
             }
 
-            var result = await _deviceRepository.PartiallyOrFullyUpdateAsync(device);
+            var deviceOnDb = await _deviceRepository.GetAsync(deviceToUpdate.Id);
+
+            if (deviceOnDb is null)
+                return false;
+
+            if (deviceOnDb.State == State.InUse)
+            {
+                if (deviceToUpdate.State is not null)
+                    deviceOnDb.State = deviceToUpdate.State;
+
+                await _deviceRepository.PartiallyOrFullyUpdateAsync(deviceToUpdate);
+
+                _logger.LogInformation("Device with ID: {DeviceId} updated successfully.", deviceToUpdate.Id);
+
+                return true;
+            }
+
+            if (deviceToUpdate.Name is not null)
+                deviceOnDb.Name = deviceToUpdate.Name;
+
+            if (deviceToUpdate.Brand is not null)
+                deviceOnDb.Brand = deviceToUpdate.Brand;
+
+            if (deviceToUpdate.State is not null)
+                deviceOnDb.State = deviceToUpdate.State;
+
+            var result = await _deviceRepository.PartiallyOrFullyUpdateAsync(deviceToUpdate);
 
             if (result)
-                _logger.LogInformation("Device with ID: {DeviceId} updated successfully.", device.Id);
+                _logger.LogInformation("Device with ID: {DeviceId} updated successfully.", deviceToUpdate.Id);
             else
-                _logger.LogWarning("Failed to update device with ID: {DeviceId}.", device.Id);
+                _logger.LogWarning("Failed to update device with ID: {DeviceId}.", deviceToUpdate.Id);
 
             return result;
         }

@@ -120,30 +120,6 @@ namespace Device.API.Infrastructure.Data.Repositories
         {
             try
             {
-                var deviceOnDb = await _dbSet.FindAsync(entityToUpdate.Id);
-
-                if (deviceOnDb is null)
-                    return false;
-
-                if (deviceOnDb.State == State.InUse) 
-                {
-                    if (entityToUpdate.State is not null)
-                        deviceOnDb.State = entityToUpdate.State;
-
-                    await _appDbContext.SaveChangesAsync();
-
-                    return true;
-                }
-
-                if (entityToUpdate.Name is not null)
-                    deviceOnDb.Name = entityToUpdate.Name;
-
-                if (entityToUpdate.Brand is not null)
-                    deviceOnDb.Brand = entityToUpdate.Brand;
-
-                if (entityToUpdate.State is not null)
-                    deviceOnDb.State = entityToUpdate.State;
-
                 await _appDbContext.SaveChangesAsync();
 
                 return true;
