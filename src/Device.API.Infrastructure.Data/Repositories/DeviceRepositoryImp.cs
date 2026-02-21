@@ -104,7 +104,7 @@ namespace Device.API.Infrastructure.Data.Repositories
             }
         }
 
-        public async Task<DeviceEntity> GetAsync(Guid? id)
+        public async Task<DeviceEntity?> GetAsync(Guid? id)
         {
             try
             {
