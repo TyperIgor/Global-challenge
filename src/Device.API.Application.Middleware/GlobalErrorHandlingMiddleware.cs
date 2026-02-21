@@ -27,7 +27,6 @@ namespace Device.API.Application.Middleware
 
         public static Task HandleExceptionMessageAsync(HttpContext context)
         {
-
             string response = JsonSerializer.Serialize(new ValidationProblemDetails()
             {
                 Title = "Something went wrong",
