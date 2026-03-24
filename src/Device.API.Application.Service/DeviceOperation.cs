@@ -6,9 +6,9 @@ using Device.API.Domain.Contracts;
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Device.API.Infrastructure.DI")]
 namespace Device.API.Application.Service
 {
-    internal class DeviceOperation(IDeviceCRUD deviceCRUD) : IDevicesOperation
+    internal class DeviceOperation(IDeviceImp deviceCRUD) : IDevicesOperation
     {
-        private readonly IDeviceCRUD _deviceCRUD = deviceCRUD ?? throw new ArgumentNullException(nameof(deviceCRUD));
+        private readonly IDeviceImp _deviceCRUD = deviceCRUD ?? throw new ArgumentNullException(nameof(deviceCRUD));
 
         public async Task<bool> CreateAsync(string name, string brand)
         {

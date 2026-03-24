@@ -2,7 +2,7 @@
 
 namespace Device.API.Domain.Contracts
 {
-    public interface IDeviceCRUD
+    public interface IDeviceImp
     {
         Task<List<DeviceEntity>> GetAllDevicesAsync();    
 
