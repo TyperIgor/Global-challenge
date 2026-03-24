@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Device.API.Infrastructure.Data.Context
 {
-    public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+    public class RepositoryContext(DbContextOptions<RepositoryContext> options) : DbContext(options)
     {
         public DbSet<DeviceEntity> Devices => Set<DeviceEntity>();
 

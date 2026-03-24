@@ -1,7 +1,6 @@
 ﻿using Device.API.Domain.Contracts.Repositories;
 using Device.API.Domain.Models.Entities;
 using Device.API.Infrastructure.Data.Context;
-using Device.API.Infrastructure.Data.Interfaces;
 using Device.API.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NSubstitute;
@@ -11,20 +10,19 @@ namespace Device.API.Test.Repositories
     public class DeviceRepositoryTest
     {
         private readonly IDeviceRepository _deviceRepository;
-        private readonly IDbContext _dbContext;
         private DeviceRepositoryImp? _deviceRepositoryObj;
 
         public DeviceRepositoryTest()
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
+            var options = new DbContextOptionsBuilder<RepositoryContext>()
                             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                             .Options;
 
-            var context = new AppDbContext(options);
+            var context = new RepositoryContext(options);
 
             _deviceRepository = Substitute.For<IDeviceRepository>();
-            _dbContext = Substitute.For<IDbContext>();
-            _deviceRepositoryObj = new DeviceRepositoryImp(_dbContext, context);
+ 
+            _deviceRepositoryObj = new DeviceRepositoryImp(context);
         }
 
         [Fact]

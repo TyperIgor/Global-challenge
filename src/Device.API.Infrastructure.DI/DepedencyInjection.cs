@@ -4,7 +4,6 @@ using Device.API.Domain.Contracts;
 using Device.API.Domain.Contracts.Repositories;
 using Device.API.Domain.Service;
 using Device.API.Infrastructure.Data.Context;
-using Device.API.Infrastructure.Data.Interfaces;
 using Device.API.Infrastructure.Data.Repositories;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
@@ -30,12 +29,11 @@ namespace Device.API.Infrastructure.DI
 
             #endregion
             #region Infrastructure db context
-            services.AddDbContext<AppDbContext>(options =>
-                    options.UseNpgsql(
+            services.AddDbContext<RepositoryContext>(options => 
+                    options.UseNpgsql( // EF Core manage connection itself and it will open and close connection when needed, so we don't need to manage connection manually
                     configuration.GetConnectionString("Postgres"), // ToDO : Move connection string to secret manager AWS secret or Azure Key vault whaetever
                     b => b.MigrationsAssembly("Device.API.Infrastructure.Data"))); //Configure EF Migrations Assembly 
 
-            services.AddScoped<IDbContext, DBContext>(); //Manual db context to handle npgsql connections
             services.AddScoped<IDeviceRepository, DeviceRepositoryImp>();
             #endregion
             #region HealthCheck

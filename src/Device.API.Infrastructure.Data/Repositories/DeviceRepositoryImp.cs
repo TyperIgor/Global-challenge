@@ -1,16 +1,16 @@
 ﻿
 using Device.API.Domain.Contracts.Repositories;
-using Device.API.Infrastructure.Data.Interfaces;
 using Device.API.Infrastructure.Data.Context;
 using Device.API.Domain.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Device.API.Test")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Device.API.Infrastructure.DI")]
 namespace Device.API.Infrastructure.Data.Repositories
 {
-    internal class DeviceRepositoryImp(IDbContext dbContext, AppDbContext context) : Repository(dbContext), IDeviceRepository
+    internal class DeviceRepositoryImp(RepositoryContext context) : IDeviceRepository
     {
-        private readonly AppDbContext _appDbContext = context ?? throw new ArgumentNullException(nameof(context));
+        private readonly RepositoryContext _appDbContext = context ?? throw new ArgumentNullException(nameof(context));
 
         private readonly DbSet<DeviceEntity> _dbSet = context.Devices ?? throw new ArgumentNullException(nameof(context));
 
