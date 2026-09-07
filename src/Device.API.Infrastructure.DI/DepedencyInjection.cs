@@ -21,7 +21,7 @@ namespace Device.API.Infrastructure.DI
 
             #region Application/Services Layers 
             services.AddScoped<IDevicesOperation, DeviceOperation>();
-            services.AddScoped<IDeviceCRUD, DeviceImp>();
+            services.AddScoped<IDeviceImpBusiness, DeviceImp>();
             #endregion
             #region FluentValidation
             services.AddFluentValidationAutoValidation();

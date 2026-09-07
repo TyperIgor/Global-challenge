@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Device.API.Infrastructure.DI")]
 namespace Device.API.Domain.Service
 {
-    internal class DeviceImp(IDeviceRepository deviceRepository, ILogger<DeviceImp> logger) : IDeviceCRUD // In this domain service class, i can use multiple repositories if needed and apply domain business rules
+    internal class DeviceImp(IDeviceRepository deviceRepository, ILogger<DeviceImp> logger) : IDeviceImpBusiness // In this domain service class, i can use multiple repositories if needed and apply domain business rules
     {
         private readonly IDeviceRepository _deviceRepository = deviceRepository ?? throw new ArgumentNullException(nameof(deviceRepository));
         private readonly ILogger<DeviceImp> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
